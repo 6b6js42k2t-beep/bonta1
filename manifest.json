@@ -1,0 +1,15 @@
+{
+  "name": "Agriturismo La Bontà",
+  "short_name": "La Bontà",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b3d5c",
+  "icons": [
+    {
+      "src": "Immagine%20WhatsApp%202026-06-12%20alle%2016.06.04.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
