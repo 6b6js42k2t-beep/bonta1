@@ -5,47 +5,282 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>La Bontà Manager Pro</title>
+
 <style>
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f0f4f8; color: #1c2d37; padding-bottom: 30px; }
-header { background: #0b3d5c; color: #fff; padding: 18px 15px; text-align: center; font-size: 20px; font-weight: bold; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
-.date-selector-zone { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #d0dbe3; }
-.date-selector-zone label { font-size: 14px; font-weight: bold; color: #0b3d5c; display: block; margin-bottom: 6px; }
-.main-date-input { width: 100%; max-width: 280px; padding: 12px; font-size: 16px; font-weight: bold; color: #0b3d5c; border: 2px solid #0b3d5c; border-radius: 8px; background: #f9fbfd; text-align: center; }
-.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px; }
-.card { background: #fff; padding: 12px; border-radius: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.04); border-left: 4px solid #0b3d5c; font-size: 14px; color: #666; }
-.card b { display: block; font-size: 20px; margin-top: 4px; color: #0b3d5c; }
-.card.free-card { border-left-color: #2e7d32; }
-.card.free-card b { color: #2e7d32; }
-.card.busy-card { border-left-color: #c62828; }
-.card.busy-card b { color: #c62828; }
-.map-container { width: 100%; overflow-x: auto; padding: 10px 0; background: #e2eaf0; border-top: 1px solid #d0dbe3; border-bottom: 1px solid #d0dbe3; -webkit-overflow-scrolling: touch; }
-.map { position: relative; width: 620px; height: 840px; margin: 0 auto; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.06); overflow: hidden; }
-.pool { position: absolute; left: 38%; top: 62%; width: 54%; height: 30%; background: #a2e3fa; border: 3px solid #5bc0eb; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #0b3d5c; font-weight: bold; font-size: 16px; letter-spacing: 2px; }
-.place { position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-weight: bold; font-size: 13px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.16); transition: transform 0.1s ease; transform: translate(-50%, -50%); text-align: center; line-height: 1.1; }
-.place:active { transform: translate(-50%, -50%) scale(0.9); }
-.place span.client-name { display: block; font-size: 9px; font-weight: normal; max-width: 38px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 1px; color: #fff; background: rgba(0,0,0,0.2); padding: 1px 2px; border-radius: 3px; }
-.umbrella { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #fff; }
-.gazebo { width: 75px; height: 45px; border-radius: 8px; border: 2px solid #fff; font-size: 13px; }
-.gazebo span.client-name { max-width: 65px; font-size: 10px; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f0f4f8;
+  color: #1c2d37;
+  padding-bottom: 30px;
+}
+
+header {
+  background: #0b3d5c;
+  color: #fff;
+  padding: 18px 15px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.date-selector-zone {
+  background: #fff;
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #d0dbe3;
+}
+
+.date-selector-zone label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #0b3d5c;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.main-date-input {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0b3d5c;
+  border: 2px solid #0b3d5c;
+  border-radius: 8px;
+  background: #f9fbfd;
+  text-align: center;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 15px;
+}
+
+.card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  border-left: 4px solid #0b3d5c;
+  font-size: 14px;
+  color: #666;
+}
+
+.card b {
+  display: block;
+  font-size: 20px;
+  margin-top: 4px;
+  color: #0b3d5c;
+}
+
+.free-card { border-left-color: #2e7d32; }
+.free-card b { color: #2e7d32; }
+
+.busy-card { border-left-color: #c62828; }
+.busy-card b { color: #c62828; }
+
+.arrived-card { border-left-color: #1976d2; }
+.arrived-card b { color: #1976d2; }
+
+.map-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 10px 0;
+  background: #e2eaf0;
+  border-top: 1px solid #d0dbe3;
+  border-bottom: 1px solid #d0dbe3;
+  -webkit-overflow-scrolling: touch;
+}
+
+.map {
+  position: relative;
+  width: 620px;
+  height: 840px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.pool {
+  position: absolute;
+  left: 38%;
+  top: 62%;
+  width: 54%;
+  height: 30%;
+  background: #a2e3fa;
+  border: 3px solid #5bc0eb;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0b3d5c;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.place {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  transition: transform 0.1s ease;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 1.1;
+}
+
+.place:active {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.place span.client-name {
+  display: block;
+  font-size: 9px;
+  font-weight: normal;
+  max-width: 38px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 1px;
+  color: #fff;
+  background: rgba(0,0,0,0.2);
+  padding: 1px 2px;
+  border-radius: 3px;
+}
+
+.umbrella {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.gazebo {
+  width: 75px;
+  height: 45px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  font-size: 13px;
+}
+
+.gazebo span.client-name {
+  max-width: 65px;
+  font-size: 10px;
+}
+
 .free { background: #2e7d32; }
 .busy { background: #d32f2f; }
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; backdrop-filter: blur(2px); }
-.box { background: #fff; width: 92%; max-width: 420px; margin: 5vh auto; padding: 20px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; }
-.box h3 { margin-top: 0; margin-bottom: 15px; color: #0b3d5c; border-bottom: 2px solid #f0f4f8; padding-bottom: 8px; font-size: 18px; }
-label { font-size: 12px; font-weight: bold; color: #555; display: block; margin-top: 8px; }
-input, textarea, select { width: 100%; padding: 12px; margin: 4px 0 10px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; background: #f9fbfd; }
-.btn-group { display: flex; gap: 10px; margin-top: 15px; }
-button { padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: bold; flex: 1; }
+.arrived { background: #1976d2; }
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.box {
+  background: #fff;
+  width: 92%;
+  max-width: 420px;
+  margin: 5vh auto;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.box h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #0b3d5c;
+  border-bottom: 2px solid #f0f4f8;
+  padding-bottom: 8px;
+  font-size: 18px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+  display: block;
+  margin-top: 8px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin: 4px 0 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #f9fbfd;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  flex: 1;
+}
+
 .save { background: #2e7d32; color: #fff; }
 .freebtn { background: #d32f2f; color: #fff; }
+.arrivebtn { background: #1976d2; color: #fff; }
 .closebtn { background: #78909c; color: #fff; }
-#history { padding: 15px; }
-.row { background: #fff; padding: 12px; border-radius: 10px; margin: 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 3px solid #0b3d5c; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+
+#history {
+  padding: 15px;
+}
+
+.row {
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  border-left: 3px solid #0b3d5c;
+  font-size: 14px;
+}
 </style>
 </head>
 
 <body>
+
 <header>La Bontà Manager Pro</header>
 
 <div class="date-selector-zone">
@@ -55,7 +290,8 @@ button { padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-
 
 <div class="stats">
   <div class="card free-card">Liberi<br><b id="freeCount">0</b></div>
-  <div class="card busy-card">Occupati<br><b id="busyCount">0</b></div>
+  <div class="card busy-card">Prenotati<br><b id="busyCount">0</b></div>
+  <div class="card arrived-card">Presenti<br><b id="arrivedCount">0</b></div>
   <div class="card">Incassato<br><b id="cash">0 €</b></div>
   <div class="card">Da Incassare<br><b id="pending">0 €</b></div>
 </div>
@@ -71,20 +307,34 @@ button { padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-
 <div class="modal" id="modal">
   <div class="box">
     <h3 id="title">Posto</h3>
-    <label>Nome Cliente</label><input id="nome">
-    <label>Persone</label><input id="persone" type="number">
-    <label>Telefono</label><input id="telefono">
-    <label>Importo (€)</label><input id="importo" type="number">
+
+    <label>Nome Cliente</label>
+    <input id="nome">
+
+    <label>Persone</label>
+    <input id="persone" type="number">
+
+    <label>Telefono</label>
+    <input id="telefono">
+
+    <label>Importo (€)</label>
+    <input id="importo" type="number">
+
     <label>Stato Pagamento</label>
     <select id="pagato">
       <option value="si">Pagato</option>
       <option value="no">Non pagato</option>
     </select>
-    <label>Note</label><textarea id="note"></textarea>
+
+    <label>Note</label>
+    <textarea id="note"></textarea>
+
     <div class="btn-group">
       <button class="freebtn" onclick="freePlace()">Libera</button>
+      <button class="arrivebtn" onclick="markArrived()">Arrivato</button>
       <button class="save" onclick="saveBooking()">Salva</button>
     </div>
+
     <button class="closebtn" style="width:100%; margin-top:10px;" onclick="closeModal()">Chiudi</button>
   </div>
 </div>
@@ -137,16 +387,11 @@ let currentId = null;
 
 document.getElementById('globalDate').value = new Date().toISOString().split('T')[0];
 
-onValue(ref(db, 'prenotazioni/'), (snapshot) => {
-  allData = snapshot.val() || {};
-  refresh();
-});
-
 const map = document.getElementById('map');
 
 positions.forEach(p => {
   let d = document.createElement('div');
-  d.className = 'place ' + p.t;
+  d.className = 'place ' + p.t + ' free';
   d.style.left = p.x + '%';
   d.style.top = p.y + '%';
   d.setAttribute('data-id', p.id);
@@ -163,10 +408,16 @@ positions.forEach(p => {
     document.getElementById('importo').value = b.importo || '';
     document.getElementById('pagato').value = b.pagato || 'si';
     document.getElementById('note').value = b.note || '';
+
     document.getElementById('modal').style.display = 'block';
   };
 
   map.appendChild(d);
+});
+
+onValue(ref(db, 'prenotazioni/'), (snapshot) => {
+  allData = snapshot.val() || {};
+  refresh();
 });
 
 window.saveBooking = () => {
@@ -178,7 +429,25 @@ window.saveBooking = () => {
     telefono: document.getElementById('telefono').value,
     importo: document.getElementById('importo').value,
     pagato: document.getElementById('pagato').value,
-    note: document.getElementById('note').value
+    note: document.getElementById('note').value,
+    arrivato: false
+  });
+
+  document.getElementById('modal').style.display = 'none';
+};
+
+window.markArrived = () => {
+  const date = document.getElementById('globalDate').value;
+  const oldData = allData[currentId + '_' + date] || {};
+
+  set(ref(db, 'prenotazioni/' + currentId + '_' + date), {
+    nome: document.getElementById('nome').value || oldData.nome || '',
+    persone: document.getElementById('persone').value || oldData.persone || '',
+    telefono: document.getElementById('telefono').value || oldData.telefono || '',
+    importo: document.getElementById('importo').value || oldData.importo || '',
+    pagato: document.getElementById('pagato').value || oldData.pagato || 'si',
+    note: document.getElementById('note').value || oldData.note || '',
+    arrivato: true
   });
 
   document.getElementById('modal').style.display = 'none';
@@ -196,10 +465,13 @@ window.closeModal = () => {
 
 window.refresh = () => {
   const date = document.getElementById('globalDate').value;
+
   let free = 0;
   let busy = 0;
+  let arrived = 0;
   let cash = 0;
   let pending = 0;
+
   let historyHTML = '<h3>Prenotazioni del giorno</h3>';
 
   positions.forEach(p => {
@@ -207,15 +479,35 @@ window.refresh = () => {
     const el = document.querySelector(`[data-id="${p.id}"]`);
 
     if (d) {
-      busy++;
-      el.className = 'place ' + p.t + ' busy';
+      if (d.arrivato === true) {
+        arrived++;
+        el.className = 'place ' + p.t + ' arrived';
+      } else {
+        busy++;
+        el.className = 'place ' + p.t + ' busy';
+      }
+
       el.innerHTML = `<b>${p.id}</b><span class="client-name">${(d.nome || '').split(' ')[0]}</span>`;
 
       let imp = Number(d.importo || 0);
-      if (d.pagato === 'si') cash += imp;
-      else pending += imp;
 
-      historyHTML += `<div class="row"><b>${p.id}</b> - ${d.nome || ''} (${imp}€)</div>`;
+      if (d.pagato === 'si') {
+        cash += imp;
+      } else {
+        pending += imp;
+      }
+
+      const stato = d.arrivato === true ? 'Presente' : 'Prenotato';
+
+      historyHTML += `
+        <div class="row">
+          <div>
+            <b>Posto ${p.id}</b> - ${d.nome || ''}<br>
+            Persone: ${d.persone || '-'} | Importo: ${imp}€ | ${stato}
+          </div>
+        </div>
+      `;
+
     } else {
       free++;
       el.className = 'place ' + p.t + ' free';
@@ -225,10 +517,12 @@ window.refresh = () => {
 
   document.getElementById('freeCount').innerText = free;
   document.getElementById('busyCount').innerText = busy;
+  document.getElementById('arrivedCount').innerText = arrived;
   document.getElementById('cash').innerText = cash + " €";
   document.getElementById('pending').innerText = pending + " €";
   document.getElementById('history').innerHTML = historyHTML;
 };
 </script>
+
 </body>
 </html>
